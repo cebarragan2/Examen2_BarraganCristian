@@ -13,7 +13,7 @@ if (isset($_POST['save']) && $_POST['accion'] == "Agregar") {
   header('Location: index.php');
   
 } elseif (isset($_POST['save']) && $_POST['accion'] == "Modificar") {
-   echo $resp=$_POST['COD'];
+  $resp='"'.$_POST['COD'].'"';
   $stmt = $conn->prepare("UPDATE seg_modulo SET  NOMBRE = ? , ESTADO = ? WHERE COD_MODULO=". $resp);
   $stmt->bind_param('ss', $NOMBRE, $ESTADO);
   echo$COD_MODULO = $_POST['COD'];

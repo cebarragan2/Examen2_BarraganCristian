@@ -1,15 +1,19 @@
 <?php
-
 include('db.php');
-
 if (isset($_POST['save']) && $_POST['accion'] == "Agregar") {
   $stmt = $conn->prepare("INSERT INTO seg_modulo (COD_MODULO, NOMBRE, ESTADO) VALUES (?,?,?)");
   $stmt->bind_param('sss', $COD_MODULO, $NOMBRE, $ESTADO);
-   $COD_MODULO = $_POST['COD'];
+  $COD_MODULO = $_POST['COD'];
    $NOMBRE = $_POST['NOMBRE'];
    $ESTADO = $_POST['ESTADO'];
   $stmt->execute();
   $stmt->close();
+  $stmt2 = $conn->prepare("INSERT INTO rol_modulo (COD_ROL, COD_MODULO) VALUES (?,?)");
+  $stmt2->bind_param('ss', $COD_ROL, $COD_MODULO);
+  $COD_MODULO = $_POST['COD'];
+  $COD_ROL = $_POST['COD_ROL'];
+  $stmt2->execute();
+  $stmt2->close();
   header('Location: index.php');
   
 } elseif (isset($_POST['save']) && $_POST['accion'] == "Modificar") {
